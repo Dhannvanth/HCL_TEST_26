@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <deque>
+#include <climits>
+using namespace std;
+
+void dfs(int node, vector<vector<int>>& adj, vector<bool>& visited, stack<int>& st) {
+    visited[node] = true;
+
+    for(int neigh : adj[node]) {
+        if(!visited[neigh]) {
+            dfs(neigh, adj, visited, st);
+        }
+    }
+
+    st.push(node);
+}
+
+vector<int> topoSortDFS(int n, vector<pair<int,int>> edges) {
+    vector<vector<int>> adj(n+1);
+
+    for(auto e : edges)
+        adj[e.first].push_back(e.second);
+
+    vector<bool> visited(n+1,false);
+    stack<int> st;
+
+    for(int i=1;i<=n;i++) {
+        if(!visited[i])
+            dfs(i,adj,visited,st);
+    }
+
+    vector<int> result;
+
+    while(!st.empty()) {
+        result.push_back(st.top());
+        st.pop();
+    }
+
+    return result;
+}
