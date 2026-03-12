@@ -1,0 +1,26 @@
+#include <algorithm>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+
+int diameter = 0;
+
+int dfs(TreeNode* root) {
+    if (!root) return 0;
+
+    int left = dfs(root->left);
+    int right = dfs(root->right);
+
+    diameter = max(diameter, left + right);
+
+    return 1 + max(left, right);
+}
+
+int treeDiameter(TreeNode* root) {
+    dfs(root);
+    return diameter;
+}
