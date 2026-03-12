@@ -15,11 +15,11 @@ void dfs(int node, vector<vector<int>>& adj, vector<bool>& visited)
 
 int main()
 {
-    int n = 5; // number of nodes
+    int n = 5; 
 
     vector<vector<int>> adj(n+1);
 
-    // edges
+    
     adj[1].push_back(2);
     adj[2].push_back(1);
 
