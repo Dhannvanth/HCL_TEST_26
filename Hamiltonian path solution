@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isHamiltonian(vector<int>& perm, vector<vector<int>>& adj) {
+    for (int i = 0; i < perm.size() - 1; i++) {
+        if (adj[perm[i]][perm[i+1]] == 0)
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    int n = 4;
+
+    vector<pair<int,int>> edges = {
+        {1,2},{2,3},{3,4},{4,1}
+    };
+
+    // adjacency matrix
+    vector<vector<int>> adj(n+1, vector<int>(n+1, 0));
+
+    for(auto e : edges) {
+        adj[e.first][e.second] = 1;
+        adj[e.second][e.first] = 1; // remove if directed
+    }
+
+    vector<int> nodes;
+
+    for(int i=1;i<=n;i++)
+        nodes.push_back(i);
+
+    cout << "Hamiltonian Paths:\n";
+
+    do {
+        if(isHamiltonian(nodes, adj)) {
+            for(int x : nodes)
+                cout << x << " ";
+            cout << endl;
+        }
+
+    } while(next_permutation(nodes.begin(), nodes.end()));
+}
