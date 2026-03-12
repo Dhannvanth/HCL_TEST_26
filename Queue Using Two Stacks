@@ -1,0 +1,34 @@
+#include <stack>
+using namespace std;
+
+class Queue {
+    stack<int> inStack, outStack;
+
+public:
+    void push(int x) {
+        inStack.push(x);
+    }
+
+    int pop() {
+        if (outStack.empty()) {
+            while (!inStack.empty()) {
+                outStack.push(inStack.top());
+                inStack.pop();
+            }
+        }
+
+        int x = outStack.top();
+        outStack.pop();
+        return x;
+    }
+
+    int front() {
+        if (outStack.empty()) {
+            while (!inStack.empty()) {
+                outStack.push(inStack.top());
+                inStack.pop();
+            }
+        }
+        return outStack.top();
+    }
+};
