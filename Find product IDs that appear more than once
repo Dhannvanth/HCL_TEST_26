@@ -1,0 +1,22 @@
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> productIDs = {101, 203, 101, 405, 203, 500};
+
+    unordered_map<int, int> freq;
+
+    for (int id : productIDs) {
+        freq[id]++;
+    }
+
+    cout << "Duplicate product IDs:" << endl;
+
+    for (auto &p : freq) {
+        if (p.second > 1) {
+            cout << p.first << endl;
+        }
+    }
+}
