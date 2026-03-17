@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int node, vector<vector<int>>& adj, vector<bool>& visited) {
+    visited[node] = true;
+    
+    for(int neighbor : adj[node]) {
+        if(!visited[neighbor]) {
+            dfs(neighbor, adj, visited);
+        }
+    }
+}
+
+bool isTree(int n, vector<pair<int,int>>& edges) {
+    
+    // Condition 1: edges must be n-1
+    if(edges.size() != n - 1)
+        return false;
+
+    vector<vector<int>> adj(n);
+
+    for(auto &e : edges) {
+        adj[e.first].push_back(e.second);
+        adj[e.second].push_back(e.first);
+    }
+
+    vector<bool> visited(n, false);
+
+    dfs(0, adj, visited);
+
+    // Check connectivity
+    for(bool v : visited) {
+        if(!v)
+            return false;
+    }
+
+    return true;
+}
+
+int main() {
+
+    int n = 5;
+
+    vector<pair<int,int>> edges = {
+        {0,1}, {0,2}, {0,3}, {3,4}
+    };
+
+    if(isTree(n, edges))
+        cout << "Graph is a Tree\n";
+    else
+        cout << "Graph is NOT a Tree\n";
+
+    return 0;
+}
