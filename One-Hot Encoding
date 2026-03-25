@@ -1,0 +1,14 @@
+vector<vector<int>> oneHot(vector<string>& data){
+    set<string> s(data.begin(),data.end());
+    vector<string> uniq(s.begin(),s.end());
+
+    vector<vector<int>> res;
+
+    for(auto &d:data){
+        vector<int> row(uniq.size(),0);
+        for(int i=0;i<uniq.size();i++)
+            if(uniq[i]==d) row[i]=1;
+        res.push_back(row);
+    }
+    return res;
+}
