@@ -1,0 +1,17 @@
+int jobProfit(vector<pair<int,int>>& jobs){
+    sort(jobs.begin(),jobs.end(),[](auto&a,auto&b){return a.second>b.second;});
+    int n=jobs.size();
+    vector<int> slot(n,-1);
+    int profit=0;
+
+    for(auto &j:jobs){
+        for(int i=j.first-1;i>=0;i--){
+            if(slot[i]==-1){
+                slot[i]=1;
+                profit+=j.second;
+                break;
+            }
+        }
+    }
+    return profit;
+}
