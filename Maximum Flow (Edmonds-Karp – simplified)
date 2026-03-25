@@ -1,0 +1,41 @@
+int maxFlow(int n, vector<vector<int>>& cap, int s, int t){
+    vector<vector<int>> adj(n);
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            if(cap[i][j]) adj[i].push_back(j);
+
+    int flow=0;
+    vector<int> parent(n);
+
+    while(true){
+        fill(parent.begin(), parent.end(), -1);
+        parent[s]=-2;
+        queue<pair<int,int>> q;
+        q.push({s,INT_MAX});
+
+        int new_flow=0;
+        while(!q.empty()){
+            auto [cur,f]=q.front(); q.pop();
+            for(int nxt:adj[cur]){
+                if(parent[nxt]==-1 && cap[cur][nxt]){
+                    parent[nxt]=cur;
+                    int nf=min(f,cap[cur][nxt]);
+                    if(nxt==t){ new_flow=nf; break; }
+                    q.push({nxt,nf});
+                }
+            }
+            if(new_flow) break;
+        }
+        if(!new_flow) break;
+
+        flow+=new_flow;
+        int cur=t;
+        while(cur!=s){
+            int prev=parent[cur];
+            cap[prev][cur]-=new_flow;
+            cap[cur][prev]+=new_flow;
+            cur=prev;
+        }
+    }
+    return flow;
+}
