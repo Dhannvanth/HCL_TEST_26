@@ -1,0 +1,12 @@
+vector<vector<int>> merge(vector<vector<int>>& v){
+    sort(v.begin(),v.end());
+    vector<vector<int>> res;
+
+    for(auto &i:v){
+        if(res.empty() || res.back()[1]<i[0])
+            res.push_back(i);
+        else
+            res.back()[1]=max(res.back()[1],i[1]);
+    }
+    return res;
+}
