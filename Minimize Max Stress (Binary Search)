@@ -1,0 +1,20 @@
+bool can(vector<int>& a,int k,int mid){
+    int parts=1,sum=0;
+    for(int x:a){
+        if(sum+x>mid){ parts++; sum=x; }
+        else sum+=x;
+    }
+    return parts<=k;
+}
+
+int minimizeStress(vector<int>& a,int k){
+    int l=*max_element(a.begin(),a.end());
+    int h=accumulate(a.begin(),a.end(),0);
+
+    while(l<h){
+        int mid=(l+h)/2;
+        if(can(a,k,mid)) h=mid;
+        else l=mid+1;
+    }
+    return l;
+}
